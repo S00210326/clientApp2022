@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Book } from '../book';
+import { BookService } from '../book.service';
 import { DummybookService } from '../dummybook.service';
 
 @Component({
@@ -12,7 +13,7 @@ export class BookComponent implements OnInit {
   books: Book[] = [];
   message: String = '';
 
-  constructor(private bookService : DummybookService) { }
+  constructor(private bookService : BookService) { }
 
   ngOnInit(): void {
     this.bookService.getBooks().subscribe({

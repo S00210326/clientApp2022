@@ -12,7 +12,7 @@ export class BookListComponent implements OnInit {
 
   bookList: Book[] = [];
   message: string = "test";
-
+  showBookForm: boolean = false;    
   currentBook : Book | undefined;
 
   constructor(private bookService: BookService) { }
@@ -30,6 +30,91 @@ export class BookListComponent implements OnInit {
   clicked (book: Book): void {
     this.currentBook = book;
   }
+  openAddBook(): void {
+    this.currentBook = undefined;
+    this.showBookForm = true;
+  }
+  bookFormClose(book?: Book): void {
+    this.showBookForm = false;
+    console.table(book);
+    if (book == null) {
+      this.message = "form closed without saving";
+      this.currentBook = undefined
+    }
+    else if(this.currentBook == null)
+    {
+      this.addNewBook(book);
+    }
+    else{
+      this.updateBook(this.currentBook._id,book)
+    }
+  }
+  addNewBook(newBook: Book): void {
+    console.log('adding new book ' + JSON.stringify(newBook));
+    this.bookService.addBook({ ...newBook })
+      .subscribe({
+        next: book => {
+          console.log(JSON.stringify(book) + ' has been added');
+          this.message = "new book has been added";
+        },
+        error: (err) => this.message = err
+      });
+
+    // so the updated list appears
+     this.ngOnInit();
+
+
+    
+  }
+  deleteBook() {
+    console.log('deleting a book ');
+    if (this.currentBook) {
+      this.bookService.deleteBook(this.currentBook._id)
+        .subscribe({
+          next: book => {
+            console.log(JSON.stringify(book) + ' has been delettted');
+            this.message = "book has been deleted";
+          },
+          error: (err) => this.message = err
+        });
+    }
+
+    // so the updated list appears
+
+    this.ngOnInit();
+    this.currentBook=undefined;
+
+  }
+  isSelected(book: Book): boolean {
+    if (!book || !this.currentBook) {
+      return false;
+    }
+    else {
+      return book._id === this.currentBook._id;
+    }
+  }
+
+
+  openEditBook(): void {
+    this.showBookForm = true;
+  }
+  updateBook(id: string, book: Book): void {
+    console.log('updating ');
+    console.table (book);
+    this.bookService.updateBook(id, book)
+      .subscribe({
+        next: book => {
+          console.log(JSON.stringify(book) + ' has been updated');
+          this.message = " book has been updated";
+        },
+        error: (err) => this.message = err
+      });
+    // so the updated list appears
+
+    this.ngOnInit();
+  }
+
+
 
 
 }

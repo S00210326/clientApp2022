@@ -4,8 +4,17 @@
 
 export const environment = {
   production: false,
-  apiUri : 'http://localhost:3000'
+  apiUri : 'http://localhost:3000',
+  auth0:
+  {
+    domain: 'dev-vpz6bi6373xqg51z.us.auth0.com',
+    clientId: 'UEOTI61OvrHQTaNCcOfuvGTyJUiqImVJ',
+    callback_URL: 'localhost:4200/callback',
+    audience: 'books'
+  }
 };
+
+
 
 /*
  * For easier debugging in development mode, you can import the following file

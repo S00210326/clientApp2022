@@ -12,6 +12,8 @@ import { ReactiveFormsModule } from '@angular/forms';
 import {HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import {AuthHttpInterceptor, AuthModule } from '@auth0/auth0-angular';
+import { HomeComponent } from './home/home.component';
+import { ProfileComponent } from './profile/profile.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -19,7 +21,9 @@ import {AuthHttpInterceptor, AuthModule } from '@auth0/auth0-angular';
     BookListComponent,
     BookRowComponent,
     BookDetailsComponent,
-    BookFormComponent
+    BookFormComponent,
+    HomeComponent,
+    ProfileComponent
   ],
   imports: [
     BrowserModule,

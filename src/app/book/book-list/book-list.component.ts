@@ -106,12 +106,13 @@ export class BookListComponent implements OnInit {
         next: book => {
           console.log(JSON.stringify(book) + ' has been updated');
           this.message = " book has been updated";
+          this.ngOnInit();
         },
         error: (err) => this.message = err
       });
     // so the updated list appears
 
-    this.ngOnInit();
+    
   }
 
 
